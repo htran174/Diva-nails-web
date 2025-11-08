@@ -3,15 +3,19 @@
   "version": "1.0.0",
   "type": "commonjs",
   "scripts": {
-    "dev:css": "tailwindcss -i ./src/css/tailwind.css -o ./dist/assets/app.css --watch",
-    "build:css": "tailwindcss -i ./src/css/tailwind.css -o ./dist/assets/app.css --minify",
-    "build:fonts": "mkdir -p dist/assets/fonts dist/assets/icons && cp -R src/assets/fonts/* dist/assets/fonts/ 2>/dev/null || true && cp -R src/assets/icons/* dist/assets/icons/ 2>/dev/null || true",
-    "build:js": "mkdir -p dist/assets/js && cp node_modules/alpinejs/dist/cdn.min.js dist/assets/alpine.min.js && cp -R src/js/* dist/assets/js/",
-    "build:images": "mkdir -p dist/assets/images && cp -R src/assets/images/* dist/assets/images/ 2>/dev/null || true",
-    "build:html": "cp -R src/*.html dist/",
-    "build": "npm run build:css && npm run build:fonts && npm run build:js && npm run build:images && npm run build:html",
-    "preview": "npx serve dist -l 5173"
-  },
+  "dev:css": "tailwindcss -i ./src/css/tailwind.css -o ./dist/assets/app.css --watch",
+  "build:css": "tailwindcss -i ./src/css/tailwind.css -o ./dist/assets/app.css --minify",
+  "build:fonts": "mkdir -p dist/assets/fonts dist/assets/icons && cp -R src/assets/fonts/* dist/assets/fonts/ 2>/dev/null || true && cp -R src/assets/icons/* dist/assets/icons/ 2>/dev/null || true",
+  "build:js": "mkdir -p dist/assets/js && cp node_modules/alpinejs/dist/cdn.min.js dist/assets/alpine.min.js && cp -R src/js/* dist/assets/js/",
+  "build:images": "mkdir -p dist/assets/images && cp -R src/assets/images/* dist/assets/images/ 2>/dev/null || true",
+  "build:html": "cp -R src/*.html dist/",
+  "build:themes": "mkdir -p dist/assets/themes && cp -R src/css/themes/* dist/assets/themes/",
+  "build:partials": "mkdir -p dist/partials && cp -R src/partials/* dist/partials/",
+  "copy:misc": "cp -f src/favicon.ico dist/ 2>/dev/null || true",
+  "build": "npm run build:css && npm run build:fonts && npm run build:js && npm run build:images && npm run build:html && npm run build:themes && npm run build:partials && npm run copy:misc",
+  "preview": "npx serve dist -l 5173"
+},
+
   "devDependencies": {
     "@tailwindcss/typography": "^0.5.19",
     "autoprefixer": "^10.4.21",
