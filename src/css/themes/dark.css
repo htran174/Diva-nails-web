@@ -29,4 +29,7 @@
   --services-text: #F5F4EF;
   --services-muted: #B8B5AA;
   --services-shadow: 0 2px 10px rgba(0,0,0,0.35);
+
+  --text: #e8e8e8;          /* default body copy */
+  --services-text-strong: #f3f3f3; /* headings/prices on dark */
 }
