@@ -28,7 +28,6 @@
     .menu-section { text-transform:uppercase; letter-spacing:.16em; color:var(--services-gold-soft); font-size:.85rem; }
     .menu-section--rule { border-bottom:1px solid rgba(212,175,55,0.25); }
 
-    .menu-item { animation: fadeUp .6s ease both; }
     .row { display:flex; align-items:baseline; gap:.5rem; }
     .num { color:#9aa; opacity:.85; font-variant-numeric:tabular-nums; min-width:1.75ch; }
     .name { color:#f3f3f3; font-family:var(--font-h, "Cormorant Garamond", serif); font-weight:600; line-height:1.2; }
@@ -41,8 +40,6 @@
     .desc { color:#aaa; font-size:.92rem; line-height:1.6; margin-top:.35rem; margin-left:calc(1.75ch + .25rem); }
 
     .sig-divider { height:1px; background:var(--services-gold-soft); opacity:.25; }
-
-    @keyframes fadeUp { from{opacity:0;transform:translateY(6px)} to{opacity:1;transform:translateY(0)} }
 
     @media (max-width:640px){
       .row { flex-wrap:wrap; }
@@ -59,14 +56,14 @@
 
   <main id="main" class="relative">
     <!-- Centered title block (breadcrumb removed) -->
-    <header class="px-5 md:px-10 pt-12 md:pt-16 text-center">
+    <header class="px-5 md:px-10 pt-12 md:pt-16 text-center" data-reveal>
       <h1 id="menu-title" class="font-semibold text-[40px]">Pedicure</h1>
       <div class="title-underline mx-auto" aria-hidden="true"></div>
-      <p class="mt-3 subtitle text-[16px]">Thoughtful care, transparent pricing.</p>
+      <p class="mt-3 subtitle text-[16px]" data-reveal>Thoughtful care, transparent pricing.</p>
     </header>
 
     <!-- Menu column -->
-    <section class="relative mx-auto menu-wrap px-5 md:px-10 pb-20 mt-8 md:mt-10">
+    <section class="relative mx-auto menu-wrap px-5 md:px-10 pb-20 mt-8 md:mt-10" data-reveal>
       <!-- CORE -->
       <h2 class="mt-2 menu-section">Core Pedicures</h2>
       <div class="mt-2 menu-section--rule"></div>

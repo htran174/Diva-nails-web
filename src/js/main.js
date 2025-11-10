@@ -11,23 +11,27 @@ const A = window.Alpine;
 A.store("flags", { booking: BOOKING_ENABLED });
 A.store("biz", BIZ);
 
-// Reveal-on-scroll (kept as-is)
 document.addEventListener("DOMContentLoaded", () => {
-  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (reduce) return;
+  // Mark that reveal JS is loaded (used by CSS fail-safe)
+  document.documentElement.classList.add("has-reveal-js");
 
-  const els = document.querySelectorAll('[data-reveal]');
-  els.forEach(el => el.classList.add('reveal-init'));
+  const elements = document.querySelectorAll("[data-reveal], .reveal");
+  if (!elements.length) return;
 
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        e.target.classList.add('reveal-in');
-        e.target.classList.remove('reveal-init');
-        io.unobserve(e.target);
-      }
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+
+      const el = entry.target;
+      const delay = parseFloat(el.getAttribute("data-reveal-delay") || "0");
+
+      setTimeout(() => {
+        el.classList.add("reveal--in");
+      }, delay);
+
+      observer.unobserve(el);
     });
-  }, { threshold: 0.12, rootMargin: '0px 0px -10% 0px' });
+  }, { threshold: 0.15 });
 
-  els.forEach(el => io.observe(el));
+  elements.forEach((el) => observer.observe(el));
 });
