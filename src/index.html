@@ -22,55 +22,122 @@
                         .then(html => { $el.outerHTML = html })">
   </div>
 
-  <!-- HERO (text left, faded image right) -->
-  <section class="px-6 md:px-10 py-16 md:py-24">
-    <div class="grid md:grid-cols-2 gap-10 items-center">
-      <!-- Left: headline + copy + CTAs -->
-      <div>
-        <h1 class="text-5xl md:text-7xl font-semibold leading-tight" data-reveal>
-          <span style="color:var(--gold)">Elegant</span> Nails
-          <span class="block">
-            <span style="color:var(--gold)">Luxury</span> Pedicure</span>
-        </h1>
+ <!-- HERO — Cross-fade with pill controls -->
+<section id="hero"
+  class="relative h-[70vh] md:h-[85vh] overflow-hidden pb-12 md:pb-16 bg-black"
+  x-data="heroSlider()"
+  x-init="init()"
+  @mouseenter="pause()" @mouseleave="resume()">
 
-        <p class="mt-5 text-lg md:text-xl muted max-w-2xl" data-reveal>
-          Thoughtful design, transparent pricing, and sanitized standards.
-        </p>
+  <!-- Slides -->
+  <template x-for="(img, i) in slides" :key="img.src">
+    <img
+      :src="img.src"
+      :alt="img.alt"
+      class="absolute inset-0 w-full h-full object-cover transition-opacity duration-[2000ms] ease-in-out"
+      :class="current === i ? 'opacity-100' : 'opacity-0'"
+      :loading="i === 0 ? 'eager' : 'lazy'"
+      decoding="async"
+      fetchpriority="high"
+    >
+  </template>
 
-        <div class="mt-8 flex flex-wrap gap-3" data-reveal>
-          <a class="btn btn-gold" href="/#services">Services</a>
-          <a class="btn btn-gold" href="/contact.html" data-booking>Book</a>
-        </div>
-      </div>
+  <!-- Dark gradient overlay to keep text readable -->
+  <div class="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/50 via-black/30 to-black/60"></div>
 
-      <!-- Right: image (soft, faded) -->
-      <div class="relative h-[360px] md:h-[480px] rounded-[var(--radius)] overflow-hidden border border-[color:var(--color-border)]" data-reveal>
-        <img src="/assets/images/homepagenail.jpg" alt="Diva Nails work sample"
-             class="w-full h-full object-cover opacity-60" />
-        <div class="absolute inset-0 bg-gradient-to-b from-black/20 to-black/50"></div>
+  <!-- Centered text -->
+  <div class="relative z-10 h-full flex items-center justify-center text-center px-6">
+    <div data-reveal class="reveal">
+      <h1 class="text-4xl md:text-6xl font-semibold tracking-wide" style="color: var(--white);">
+        Diva Nails
+      </h1>
+      <p class="mt-4 text-lg md:text-xl">
+        <span style="color: var(--white);">+1 (701) 761-2828. 
+      </p>
+      <div class="mt-6">
+        <a href="/#services" class="btn btn-gold">Our Services</a>
       </div>
     </div>
-  </section>
+  </div>
+
+  <!-- Pills controls -->
+  <div class="absolute bottom-3 left-0 right-0 z-10 flex items-center justify-center gap-2 px-4">
+    <template x-for="(img, i) in slides" :key="`pill-${i}`">
+      <button
+        class="h-2.5 md:h-3 rounded-full transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-white/50"
+        :class="current === i ? 'w-8 md:w-10 bg-white/90' : 'w-4 md:w-5 bg-white/40 hover:bg-white/60'"
+        @click="go(i)"
+        :aria-label="`Show slide ${i+1}`"
+      ></button>
+    </template>
+  </div>
+
+  <!-- Alpine logic -->
+  <script>
+    function heroSlider() {
+      return {
+        // images (use your placeholders; change or add easily)
+        slides: [
+          { src: '/assets/images/homepagenail.jpg', alt: 'Salon nails — 1' },
+          { src: '/assets/images/IMG_0022.jpg',      alt: 'Salon nails — 2' },
+          { src: '/assets/images/IMG_0063.jpg',      alt: 'Salon nails — 3' },
+          { src: '/assets/images/IMG_0452.jpg',      alt: 'Salon nails — 4' },
+          { src: '/assets/images/IMG_9564.jpg',      alt: 'Salon nails — 5' },
+        ],
+        current: 0,
+        intervalMs: 6000,       // ~6s per slide (luxury pace)
+        _timer: null,
+        init() {
+          // Respect prefers-reduced-motion: disable auto-advance
+          const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+          if (!reduce) this._start();
+        },
+        _start() {
+          this._timer = setInterval(() => this.next(), this.intervalMs);
+        },
+        pause() {
+          if (this._timer) { clearInterval(this._timer); this._timer = null; }
+        },
+        resume() {
+          if (!this._timer) this._start();
+        },
+        next() {
+          this.current = (this.current + 1) % this.slides.length; // infinite loop
+        },
+        go(i) {
+          this.current = i;
+          // soft reset autoplay so it doesn’t immediately jump
+          this.pause();
+          this.resume();
+        }
+      }
+    }
+  </script>
+</section>
+
+<!-- Black spacer between hero and services -->
+<div class="bg-black h-12 md:h-20 w-full relative z-[5]"></div>
+
 
   <!-- Services highlight -->
- <section class="services-band anchor-offset full-bleed" data-reveal>
+ <section class="services-band anchor-offset full-bleed mt-12 md:mt-16" data-reveal>
   <h2 class="services-heading">Our Services</h2>
   <div id="services" class="anchor-hit"></div>
   <div class="mt-10 grid gap-8 md:grid-cols-3 max-w-6xl mx-auto px-6 md:px-10">
     <!-- Acrylic -->
     <div class="service-card" data-reveal data-reveal-delay="150">
-      <a class="stretched-link" href="/handnail.html#acrylic" aria-label="Open Acrylic menu"></a>
+      <a class="stretched-link" href="/handnail.html#hand-acrylic" aria-label="Open Acrylic menu"></a>
       <h3 class="service-title">Acrylic</h3>
       <p class="service-desc">Clean structure. Long-lasting shine.</p>
-      <a href="/handnail.html#acrylic" class="btn btn-gold">View menu</a>
+      <a href="/handnail.html#hand-acrylic" class="btn btn-gold">View menu</a>
     </div>
 
     <!-- Gel Manicure -->
     <div class="service-card" data-reveal data-reveal-delay="150">
-      <a class="stretched-link" href="/services.html#gel" aria-label="Open Acrylic menu"></a>
+      <a class="stretched-link" href="/handnail.html#hand-gel" aria-label="Open Acrylic menu"></a>
       <h3 class="service-title">Gel Manicure</h3>
       <p class="service-desc">High-gloss color. Gentle removal.</p>
-      <a href="/handnail.htmll#gel" class="btn btn-gold">View menu</a>
+      <a href="/handnail.html#hand-gel" class="btn btn-gold">View menu</a>
     </div>
 
     <!-- Pedicure -->
