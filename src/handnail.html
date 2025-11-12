@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Diva Nails — Handnails Menu</title>
+
+  <!-- Theme & site CSS -->
+  <link rel="stylesheet" href="/assets/themes/dark.css" id="theme-css">
+  <link rel="stylesheet" href="/assets/app.css">
+  <link rel="stylesheet" href="/assets/fonts.css">
+
+  <!-- Alpine + site JS -->
+  <script defer src="/assets/alpine.min.js"></script>
+  <script type="module" defer src="/assets/js/main.js"></script>
+
+  <!-- Page-scoped CSS to match pedicure -->
+  <style>
+    .menu-wrap { max-width: 820px; }
+    #menu-title { font-family: var(--font-h, "Playfair Display", serif); color: #f5f5f5; letter-spacing: .01em; }
+    .title-underline { display:inline-block; height:1px; width:84px; margin-top:.5rem; background:rgba(212,175,55,.25); }
+    .subtitle { color:#bbb; opacity:.8; }
+
+    .menu-section { text-transform:uppercase; letter-spacing:.16em; color:var(--services-gold-soft); font-size:.85rem; }
+    .menu-section--rule { border-bottom:1px solid rgba(212,175,55,0.25); }
+
+    .row { display:flex; align-items:baseline; gap:.5rem; }
+    .num { color:#9aa; opacity:.85; font-variant-numeric:tabular-nums; min-width:1.75ch; }
+    .name { color:#f3f3f3; font-family:var(--font-h, "Cormorant Garamond", serif); font-weight:600; line-height:1.2; }
+    .leaders { height:1px; align-self:center; flex:1 1 auto; color:#888; opacity:.5;
+      background:repeating-linear-gradient(to right, currentColor 0 1px, transparent 2px 4px); margin:0 .5rem; }
+    .price { color:#f3f3f3; font-variant-numeric:tabular-nums; margin-left:auto; white-space:nowrap; }
+    .desc { color:#aaa; font-size:.92rem; line-height:1.6; margin-top:.35rem; margin-left:calc(1.75ch + .25rem); }
+
+    .sec-divider { height:1px; background:var(--services-gold-soft); opacity:.25; }
+
+    .addons { margin:.4rem 0 0 calc(1.75ch + .25rem); padding-left:0; list-style:none; }
+    .addon-item .name, .addon-item .price { color:#cfcfcf; font-weight:500; }
+
+    @media (max-width:640px){
+      .row { flex-wrap:wrap; }
+      .leaders { display:none; }
+      .price { margin-left:0; width:100%; text-align:left; opacity:.9; }
+      .desc { margin-left:0; }
+      .addons { margin-left:0; }
+    }
+  </style>
+</head>
+
+<body class="min-h-screen bg-[color:var(--bg)] text-[color:var(--text)]">
+  <!-- Header include (same as pedicure page) -->
+  <div x-data x-init="fetch('/partials/header.html').then(r=>r.text()).then(h=>{$el.outerHTML=h})"></div>
+
+  <main id="main" class="relative">
+    <header class="px-5 md:px-10 pt-12 md:pt-16 text-center" data-reveal>
+      <h1 id="menu-title" class="font-semibold text-[40px]">Handnails</h1>
+      <div class="title-underline mx-auto" aria-hidden="true"></div>
+      <p class="mt-3 subtitle text-[16px]" data-reveal>Refined finishes, clear add-ons.</p>
+    </header>
+
+    <section class="relative mx-auto menu-wrap px-5 md:px-10 pb-20 mt-8 md:mt-10" data-reveal>
+      <!-- GEL -->
+      <h2 class="mt-2 menu-section">Gel Nails</h2>
+      <div class="mt-2 menu-section--rule"></div>
+      <ol id="hand-gel" class="mt-6 space-y-8 md:space-y-9" aria-labelledby="menu-title"></ol>
+
+      <div class="mt-12 sec-divider" aria-hidden="true"></div>
+
+      <!-- ACRYLIC & DIP -->
+      <h2 class="mt-6 menu-section">Acrylic &amp; Dip</h2>
+      <ol id="hand-acrylic" class="mt-6 space-y-8 md:space-y-9" aria-labelledby="menu-title"></ol>
+    </section>
+  </main>
+
+  <!-- Footer include -->
+  <div x-data x-init="fetch('/partials/footer.html').then(r=>r.text()).then(h=>{$el.outerHTML=h})"></div>
+
+  <!-- Bootstrap the shared renderer with the Handnails data -->
+  <script type="module">
+    import { bootstrapMenu } from "/assets/js/menu.js";
+    bootstrapMenu({
+      dataModule: "/assets/js/menu-handnail.data.js",
+      selectors: { gel: "#hand-gel", acrylic: "#hand-acrylic" }
+    });
+  </script>
+</body>
+</html>
