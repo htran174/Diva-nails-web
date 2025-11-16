@@ -1,6 +1,5 @@
 // src/js/main.js
 // Use the CDN Alpine that was loaded via <script src="/assets/alpine.min.js">
-
 import { BOOKING_ENABLED } from "./config.js";
 import { BIZ } from "./biz-data.js";
 
@@ -16,7 +15,6 @@ document.addEventListener("DOMContentLoaded", () => {
   document.documentElement.classList.add("has-reveal-js");
 
   const elements = document.querySelectorAll("[data-reveal], .reveal");
-  if (!elements.length) return;
 
   const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
@@ -34,4 +32,20 @@ document.addEventListener("DOMContentLoaded", () => {
   }, { threshold: 0.15 });
 
   elements.forEach((el) => observer.observe(el));
+
+  // ---- HERO PHONE (homepage) ----
+  const heroPhone = document.querySelector("#hero-phone");
+  if (heroPhone) {
+    // visible text
+    heroPhone.textContent = BIZ.phone || "";
+
+    // tap-to-call link
+    if (BIZ.phone_link) {
+      heroPhone.href = `tel:${BIZ.phone_link}`;
+    } else {
+      heroPhone.removeAttribute("href");
+    }
+  }
 });
+
+window.Alpine.start();

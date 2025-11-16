@@ -4,7 +4,7 @@ export const HANDNAIL_MENU = [
     number: 1,
     name: "Gel Manicure",
     price: "$40.00",
-    description: "Nail shaping, cuticle care, gel polish, and hydrating finish.",
+    description: "Shaping, cuticle care, and long-lasting gel polish finished with a hydrating treatment.",
     isActive: true,
     sortGroup: "gel",
     addons: [
@@ -14,9 +14,9 @@ export const HANDNAIL_MENU = [
   },
   {
     number: 2,
-    name: "Gel Builder",
+    name: "Builder Gel",
     price: "$60.00",
-    description: "Builder gel overlay for added strength with a natural look.",
+    description: "Builder-gel enhancement applied on natural nails to reinforce strength and provide optional extended length.",
     isActive: true,
     sortGroup: "gel",
     addons: [
@@ -32,7 +32,7 @@ export const HANDNAIL_MENU = [
     number: 3,
     name: "Refill",
     price: "$45.00",
-    description: "Refill and rebalance for existing acrylic or gel extensions.",
+    description: "Refill and rebalance for existing acrylic or gel extensions to restore shape, strength, and smoothness.",
     isActive: true,
     sortGroup: "acrylic",
     addons: [
@@ -46,7 +46,7 @@ export const HANDNAIL_MENU = [
     number: 4,
     name: "Full Set",
     price: "$55.00",
-    description: "New acrylic or gel extensions with shaping and polish.",
+    description: "New acrylic or gel extensions with custom shaping and a polished finish.",
     isActive: true,
     sortGroup: "acrylic",
     addons: [
@@ -59,7 +59,7 @@ export const HANDNAIL_MENU = [
     number: 5,
     name: "Dipping Powder",
     price: "$50.00",
-    description: "Lightweight dip system for added strength and shine.",
+    description: "Durable dip application on natural nails for added strength and a sleek, glossy finish.",
     isActive: true,
     sortGroup: "acrylic",
     addons: [

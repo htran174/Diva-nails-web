@@ -6,26 +6,62 @@
     <div class="max-w-5xl mx-auto text-center space-y-3 md:space-y-4">
 
       <!-- Brand • Address • Phone -->
-      <div class="brand-line leading-relaxed">
-        <a href="/index.html" class="font-semibold hover:opacity-80">Diva Nails</a>
-        <span class="mx-2 opacity-40">•</span>
-        <span class="opacity-80" x-text="$store.biz.address"></span>
-        <span class="mx-2 opacity-40">•</span>
-        <a class="hover:opacity-100 opacity-80" :href="`tel:${$store.biz.phone_link}`" x-text="$store.biz.phone"></a>
+      <!-- Mobile: stacked & clean
+           Desktop: single line with dots between -->
+      <div class="brand-line leading-relaxed text-sm md:text-base flex flex-col items-center gap-1 md:flex-row md:justify-center md:flex-wrap">
+        <!-- Brand -->
+        <a href="/index.html" class="font-semibold hover:opacity-80">
+          Diva Nails
+        </a>
+
+        <!-- separator only on md+ -->
+        <span class="hidden md:inline mx-2 opacity-40">•</span>
+
+        <!-- Address: opens Google Maps (same map_link used on contact page) -->
+        <a
+          class="opacity-80 hover:underline"
+          :href="$store.biz.map_link || '#'"
+          target="_blank"
+          rel="noopener"
+          x-text="$store.biz.address">
+        </a>
+
+        <!-- separator only on md+ -->
+        <span class="hidden md:inline mx-2 opacity-40">•</span>
+
+        <!-- Phone: tap to call -->
+        <a
+          class="hover:opacity-100 opacity-80"
+          :href="$store.biz.phone_link ? `tel:${$store.biz.phone_link}` : '#'"
+          x-text="$store.biz.phone">
+        </a>
       </div>
 
-      <!-- Condensed hours -->
-      <div class="hours-line tracking-wide">
+      <!-- Hours -->
+      <!-- Mobile: 3 stacked lines
+           Desktop: single centered line with bullets -->
+      <div class="hours-line tracking-wide text-xs md:text-sm">
         <template x-if="$store.biz.hours?.length >= 3">
           <div>
-            <span x-text="$store.biz.hours[0].label + ' ' + $store.biz.hours[0].value"></span>
-            <span class="mx-2 opacity-40">•</span>
-            <span x-text="$store.biz.hours[1].label + ' ' + $store.biz.hours[1].value"></span>
-            <span class="mx-2 opacity-40">•</span>
-            <span x-text="$store.biz.hours[2].label + ' ' + $store.biz.hours[2].value"></span>
+            <!-- Mobile layout -->
+            <div class="flex flex-col items-center gap-1 md:hidden">
+              <span x-text="$store.biz.hours[0].label + ' ' + $store.biz.hours[0].value"></span>
+              <span x-text="$store.biz.hours[1].label + ' ' + $store.biz.hours[1].value"></span>
+              <span x-text="$store.biz.hours[2].label + ' ' + $store.biz.hours[2].value"></span>
+            </div>
+
+            <!-- Desktop layout -->
+            <div class="hidden md:block">
+              <span x-text="$store.biz.hours[0].label + ' ' + $store.biz.hours[0].value"></span>
+              <span class="mx-2 opacity-40">•</span>
+              <span x-text="$store.biz.hours[1].label + ' ' + $store.biz.hours[1].value"></span>
+              <span class="mx-2 opacity-40">•</span>
+              <span x-text="$store.biz.hours[2].label + ' ' + $store.biz.hours[2].value"></span>
+            </div>
           </div>
         </template>
       </div>
+
 
       <!-- Socials -->
       <div class="flex items-center justify-center gap-6 pt-2">
@@ -56,7 +92,7 @@
       </div>
 
       <!-- Legal -->
-      <div class="legal-line pt-2">
+      <div class="legal-line pt-2 text-xs md:text-sm">
         © <span x-text="new Date().getFullYear()"></span> Diva Nails — All rights reserved.
       </div>
     </div>
